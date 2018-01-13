@@ -9,9 +9,36 @@
             </a-assets>
         
   	<a-marker preset="hiro">
-    <a-sphere position='0 0.5 0' material='color: red; src:#moon;'></a-box>
+    <a-sphere position='0 0.5 0' material='color: white; src:#moon;'></a-box>
+        
+    <a-cylinder id="LargeDogeCoin" rotation="0 -178 0" position="0 0 2.152" material="src:#dogeCoinImg; color:gold; metalness:0.2;" height="0.1" radius="1" scale="1 1 1" visible="true">
+                </a-cylinder>  
+        
+        
+        
   	</a-marker>
   	<a-entity camera></a-entity>
     </a-scene>
   </body>
 </html>
+
+
+<!--
+
+<!doctype HTML>
+<html>
+<script src="https://aframe.io/releases/0.6.1/aframe.min.js"></script>
+<script src="https://cdn.rawgit.com/jeromeetienne/AR.js/1.5.0/aframe/build/aframe-ar.js"> </script>
+  <body style='margin : 0px; overflow: hidden;'>
+    <a-scene embedded arjs>
+                <img id="dogeCoinImg" src="images/dogecoin.png">
+                <img id="moon" src="images/moonSurfacehighRes-min.jpg">
+            </a-assets>
+        
+  	<a-marker preset="hiro">
+    <a-sphere position='0 0.5 0' material='color: white; src:#moon;'></a-box>
+  	</a-marker>
+  	<a-entity camera></a-entity>
+    </a-scene>
+  </body>
+</html>-->
