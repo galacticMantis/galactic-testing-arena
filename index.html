@@ -5,13 +5,13 @@
 </script>
 
 <body style='margin : 0px; overflow: hidden;'>
-    <a-scene embedded arjs>
+    <a-scene embedded arjs='sourceType: webcam; detectionMode: mono_and_matrix; matrixCodeType: 3x3;'>
         <img id="dogeCoinImg" src="images/dogecoin.png">
         <img id="moon" src="images/moonSurfacehighRes-min.jpg">
         </a-assets>
 
 <!--        <a-marker preset="hiro">-->
-        <a-marker type="barcode" value="25">
+        <a-marker type="barcode" barcodeValue="25">
             <a-entity scale="0.5 0.5 0.5" rotation="-90 0 0">
                 <a-sphere position='0 0.5 0' material='color: white; src:#moon;'>
                     <a-animation attribute="rotation" dur="50000" fill="both" to="0 0 360" easing="linear" repeat="indefinite"></a-animation>
