@@ -12,6 +12,7 @@
             height: 60px;
             cursor: pointer;
             z-index: 100;
+            animation-delay:1s;
         }
 
         .exchangeDoge {
@@ -26,10 +27,16 @@
             z-index: 99;
             transition: 0s;
         }
+.exchangeDoge p{
+    margin-bottom:-0.8em;
+    padding-top:0.3em;
+    
+}
 
         .exchangeDoge h1 {
             font-size: 2em;
             display: inline-block;
+            margin-bottom:-6em;
         }
 
         .exchangeDoge h2 {
@@ -120,6 +127,11 @@
             margin-top: 10px;
         }
 
+        .addressForm{
+            animation-delay: 1.5s;
+
+        }
+
         .dogeButton {
             font-family: 'Short Stack', sans-serif;
             font-size: 2rem;
@@ -155,6 +167,7 @@
         .dogeCoinImage {
             padding-top: 1rem;
             animation-delay: 0.25s;
+            cursor: pointer;
         }
 
         wow {
@@ -239,7 +252,7 @@
 
         .bottomNav {
             background-color: #E8922D;
-            animation-delay: 0.5s;
+            animation-delay: 2s;
             z-index: 1;
         }
 
