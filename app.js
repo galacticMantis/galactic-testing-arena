@@ -80,7 +80,7 @@ var vm = new Vue({
         },
 
         dogeCountry: function () {
-            vm.dogeExchangeRate = " Đ";
+            vm.dogeExchangeRate = "1Đ";
             vm.dogeTargetCurrency = ''
             vm.dogeConversion = vm.balance;
         },
@@ -182,6 +182,12 @@ var vm = new Vue({
             });
 
         },
+        copyAddr: function () { //Clears the form after pressing main button.
+             var copyText = vm.visibleAddr;
+              window.clipboardData.setData("Text", input.val());
+              alert("Copied the text: " + copyText.value);
+        },
+        
 
 
     }
@@ -196,7 +202,6 @@ function confirmAR() {
 
     } else {}
 };
-
 
 function openQRCamera(node) { //Opens the camera or file explorer to get a picture of a QR code. So you don't have to type it in manually.
     var reader = new FileReader();
