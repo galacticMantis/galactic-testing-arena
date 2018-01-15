@@ -6,24 +6,19 @@
     <meta charset="UTF-8">
     <meta name="apple-mobile-web-app-title" content="Doge Balance">
     <!--VR Scripts-->
-    <script src="https://aframe.io/releases/0.7.0/aframe.min.js"></script>
-    <script src="js/argon.min.js"></script>
-    <script src="js/argon-aframe.min.js"></script>
-    <script src="js/CSS3DArgonHUD.js"></script>
-    <script src="js/CSS3DArgonRenderer.js"></script>
+    <script src="js/aframe.min.js"></script>
     <script src="js/aframe-look-at-component.js"></script>
     <!--Main App Scripts-->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.5.13/vue.js"></script>
-    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
-    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-    <script src="https://rawgit.com/sitepoint-editors/jsqrcode/master/src/qr_packed.js"></script>
-    <script src="js/fontawesome-all.min.js"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/numeral.js/2.0.6/numeral.min.js"></script>
+    <script src="js/vue.min.js"></script>
+    <script src="js/jquery-3.2.1.min.js"></script>
+    <script src="js/axios.min.js"></script>
+    <script src="js/qr_packed.js"></script>
+    <script src="js/numeral.min.js"></script>
     <!--Style Sheets-->
-    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.6.1/css/bulma.css">
+    <link rel="stylesheet" type="text/css" href="css/bulma.min.css">
     <link href="https://fonts.googleapis.com/css?family=Short+Stack" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Open+Sans+Condensed:300" rel="stylesheet">
-    <link rel="stylesheet" href="//cdn.materialdesignicons.com/2.1.19/css/materialdesignicons.min.css">
+    <link rel="stylesheet" href="css/materialdesignicons.min.css">
     <link rel="stylesheet" type="text/css" href="style.css">
     <link rel="stylesheet" type="text/css" href="vue-animate.min.css">
     <!--icons-->
@@ -49,7 +44,7 @@
 
 </head>
 
-<body @click="showCurrencies = false, showConversion = false;">
+<body>
 
     <div id="app">
 
@@ -59,43 +54,39 @@
                 <a-assets>
                     <img id="dogeCoinImg" src="images/dogecoin.png">
                     <img id="sky" src="images/stars.jpg">
-                    <img id="moonSurface" src="images/moonSurfacehighRes-min.jpg">
+                    <img id="moonSurface" src="images/moon.jpg">
                     <img id="earthMap" src="images/earthDay.jpg">
                     <img id="mountains" src="images/mountains.png">
                 </a-assets>
                 <a-sky color="black"></a-sky>
-
-                <ar-frame id="frame" trackvisibility="true" visible="true" parent="vuforia.doge.DogeQR" position="0 0 0" rotation="0 0 0">
-
-
-                    <a-sphere id="skyBox" material="src: #sky; side: back;" radius="500">
-                        <a-animation attribute="rotation" dur="500000" fill="forwards" to="0 360 0" easing="linear" repeat="indefinite"></a-animation>
-                    </a-sphere>
-                    <a-sphere id="skyBox2" material="src: #sky; side: back;" radius="499.5;" opacity="0.7;">
-                        <a-animation attribute="rotation" dur="500000" fill="forwards" to="360 0 0" easing="linear" repeat="indefinite"></a-animation>
-                    </a-sphere>
+                <a-entity camera="userHeight: 1.6" look-controls></a-entity>
+                <a-sphere id="skyBox" material="src: #sky; side: back;" radius="500">
+                    <a-animation attribute="rotation" dur="500000" fill="forwards" to="0 360 0" easing="linear" repeat="indefinite"></a-animation>
+                </a-sphere>
+                <a-sphere id="skyBox2" material="src: #sky; side: back;" radius="499.5;" opacity="0.7;">
+                    <a-animation attribute="rotation" dur="500000" fill="forwards" to="360 0 0" easing="linear" repeat="indefinite"></a-animation>
+                </a-sphere>
 
 
-                    <a-sphere id="theMountains" material="src: #mountains; side: back; transparent: true;" radius="450;" opacity="1;">
-                    </a-sphere>
+                <a-sphere id="theMountains" material="src: #mountains; side: back; transparent: true;" radius="450;" opacity="1;">
+                </a-sphere>
 
-                    <a-sphere id="earth" rotation="360 0 0" position="-170 280 -3" material="height:0.1;src:#earthMap;color:white;metalness:0" height="0.1" radius="50" scale="1 1 1">
-                        <a-animation data-brackets-id="19270" attribute="rotation" dur="900000" fill="both" to="0 360 0" easing="linear" repeat="indefinite"></a-animation>
-                    </a-sphere>
+                <a-sphere id="earth" rotation="360 0 0" position="-170 280 -3" material="height:0.1;src:#earthMap;color:white;metalness:0" height="0.1" radius="50" scale="1 1 1">
+                    <a-animation data-brackets-id="19270" attribute="rotation" dur="900000" fill="both" to="0 360 0" easing="linear" repeat="indefinite"></a-animation>
+                </a-sphere>
 
-                    <a-cylinder id="LargeDogeCoin" rotation='90 0 0' position='0 2.21 -3' material="src: #dogeCoinImg; color: gold; metalness:0.2;" height="0.1" radius="1">
-                        <a-animation attribute="rotation" dur="5000" fill="both" to="90 0 360" easing="linear" repeat="indefinite"></a-animation>
-                    </a-cylinder>
+                <a-cylinder id="LargeDogeCoin" rotation='90 0 0' position='0 2.21 -3' material="src: #dogeCoinImg; color: gold; metalness:0.2;" height="0.1" radius="1">
+                    <a-animation attribute="rotation" dur="5000" fill="both" to="90 0 360" easing="linear" repeat="indefinite"></a-animation>
+                </a-cylinder>
 
-                    <a-entity position="0 1.43 -4">
-                        <a-text id="VRBalance" material="metalness:0;" align='center' position="0 -0.45 1.4" rotation="-13 0 0" height="1" width="2" value="CURRENT BALANCE"></a-text>
+                <a-entity position="0 1.43 -4">
+                    <a-text id="VRBalance" material="metalness:0;" align='center' position="0 -0.45 1.4" rotation="-13 0 0" height="1" width="2" value="CURRENT BALANCE"></a-text>
 
-                        <a-text id="VRDogeBalance" color="yellow" align='center' position="0. -0.6 1.522" rotation="-13 0 0" v-bind:value="balanceRaw + ' DOGE'"></a-text>
+                    <a-text id="VRDogeBalance" color="yellow" align='center' position="0. -0.6 1.522" rotation="-13 0 0" v-bind:value="balanceRaw + ' DOGE'"></a-text>
 
-                        <a-text id="VRAddr" material="metalness:0;" align='center' position="0 -0.8 1.539" rotation="-13 0 0" height="1" width="2" v-bind:value="visibleAddr"></a-text>
-                    </a-entity>
-                    <a-image id="Ground" height="120" width="240" rotation="90 0 0" position="0 0 0" src="#moonSurface"></a-image>
-                </ar-frame>
+                    <a-text id="VRAddr" material="metalness:0;" align='center' position="0 -0.8 1.539" rotation="-13 0 0" height="1" width="2" v-bind:value="visibleAddr"></a-text>
+                </a-entity>
+                <a-image id="Ground" height="50" width="150" rotation="90 0 0" position="0 0 0" src="#moonSurface"></a-image>
             </a-scene>
         </div>
         <!--This is where the VR ends-->
@@ -107,31 +98,30 @@
             </div>
         </nav>
 
-<transition name="fade" enter-active-class="fadeInDown" leave-active-class="fadeOutUp">
-        <nav class="navDoge exchangeDoge" role="navigation" aria-label="main navigation" v-if="showConversion" @close="showConversion = false">
-            <div class="">
-                <div class="has-text-centered"><span class="icon dogeBurger" @click="showCurrencies = true"><i class="mdi mdi-cash-100"></i></span>
-                    <span class="icon dogeClose" @click="showConversion = false, showCurrencies = false"><i class="mdi mdi-close"></i></span>
-                    Current Exchange Rate: Đ = {{ dogeExchangeRate }}{{ dogeTargetCurrency }}</div>
+        <transition name="fade" enter-active-class="fadeInDown" leave-active-class="fadeOutUp">
+            <nav class="navDoge exchangeDoge" role="navigation" aria-label="main navigation" v-if="showConversion" @close="showConversion = false">
+                <div class="">
+                    <div class="has-text-centered"><span class="icon dogeBurger" @click="showCurrencies = true"><i class="mdi mdi-cash-100"></i></span>
+                        <span class="icon dogeClose" @click="showConversion = false, showCurrencies = false"><i class="mdi mdi-close"></i></span> Current Exchange Rate: Đ = {{ dogeExchangeRate }}{{ dogeTargetCurrency }}</div>
 
-                <div class="has-text-centered">Current Balance: {{ dogeConversion }}</div>
-            </div>
-        </nav>
-    </transition>
-    
-<transition name="fade" enter-active-class="fadeInLeft" leave-active-class="fadeOutLeft">
-        <aside class="menu currencyMenu" v-if="showCurrencies" @close="showCurrencies = false">
-            <p class="menu-label">
-                Choose a currency
-            </p>
-            <ul class="menu-list">
-                <li @click="country = ('doge'), dogeCountry()"><a>DOGE</a></li>
-                <li @click="country = ('usd'), dogeExchange()"><a>USD</a></li>
-                <li @click="country = ('eur'), dogeExchange()"><a>EUR</a></li>
-            </ul>
-        </aside>
-    </transition>
-    
+                    <div class="has-text-centered">Current Balance: {{ dogeConversion }}</div>
+                </div>
+            </nav>
+        </transition>
+
+        <transition name="fade" enter-active-class="fadeInLeft" leave-active-class="fadeOutLeft">
+            <aside class="menu currencyMenu" v-if="showCurrencies" @close="showCurrencies = false">
+                <p class="menu-label">
+                    Choose a currency
+                </p>
+                <ul class="menu-list">
+                    <li @click="country = ('doge'), dogeCountry()"><a>DOGE</a></li>
+                    <li @click="country = ('usd'), dogeExchange()"><a>USD</a></li>
+                    <li @click="country = ('eur'), dogeExchange()"><a>EUR</a></li>
+                </ul>
+            </aside>
+        </transition>
+
 
 
         <div class="columns is-mobile">
@@ -190,33 +180,33 @@
         <!--bottom Nav End-->
 
         <!--Close info Modal-->
-    <!-- modal component -->
-    <script type="text/x-template" id="modal-template">
-        <transition name="slideDown">
-            <div class="modal">
-                <div class="modal-background" @click="$emit('close')"></div>
-                <div class="modal-card">
-                    <header class="modal-card-head">
-                        <slot name="header">
-                            <h1>Title</h1>
-                        </slot>
-                        <p class="modal-card-title"></p>
+        <!-- modal component -->
+        <script type="text/x-template" id="modal-template">
+            <transition name="slideDown">
+                <div class="modal">
+                    <div class="modal-background" @click="$emit('close')"></div>
+                    <div class="modal-card">
+                        <header class="modal-card-head">
+                            <slot name="header">
+                                <h1>Title</h1>
+                            </slot>
+                            <p class="modal-card-title"></p>
 
-                        <button class="delete" aria-label="close" @click="$emit('close')"></button>
-                    </header>
-                    <section class="modal-card-body">
-                        <slot name="body">
-                            default body
-                        </slot>
-                    </section>
-                    <footer class="modal-card-foot">
-                        <slot name="footer">
-                        </slot>
-                    </footer>
+                            <button class="delete" aria-label="close" @click="$emit('close')"></button>
+                        </header>
+                        <section class="modal-card-body">
+                            <slot name="body">
+                                default body
+                            </slot>
+                        </section>
+                        <footer class="modal-card-foot">
+                            <slot name="footer">
+                            </slot>
+                        </footer>
+                    </div>
                 </div>
-            </div>
-        </transition>
-    </script>
+            </transition>
+        </script>
 
     </div>
     <!--Close App-->
