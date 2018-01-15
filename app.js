@@ -7,6 +7,10 @@
 //I also thought it would be fun to have VR and AR versions of a dogecoin balance checker.
 //I'm sure everything can be optimized and made a lot better but the point is that it works!
 
+Vue.component('modal', {
+    template: '#modal-template'
+})
+
 var vm = new Vue({
 
     el: '#app',
@@ -20,7 +24,15 @@ var vm = new Vue({
         QRisActive: false, //QR or Dogecoin Image is active.
         isRaw: true, //Click balance to show the decimal places or not.
         isActive: false,
-        hasError: false
+        hasError: false,
+        dogeExchangeRate: '1 Đ',
+        dogeTargetCurrency: '',
+        country: 'doge',
+        dogeConversion: '',
+        showModal: false,
+        showConversion: false,
+        showCurrencies: false,
+
     },
     created: function () {
         this.dogeDefault(); //Gets the information for my default address to fill in everything.
@@ -32,18 +44,53 @@ var vm = new Vue({
             dogeAddr = document.getElementById('input').value //converts entered addr to dogeAddr variable.
             var vm = this;
             axios.get('https://dogechain.info/api/v1/address/balance/' + dogeAddr).then(function (response) { //puts dogeAddr variable at the end of the URL to get the balance.
-                    var shortBal = parseInt(response.data['balance']); //Short Balance
-                    var longBal = parseFloat(response.data['balance']); //Long Balance
-                    var a = numeral(shortBal).format('0,0');
-                    var b = numeral(longBal).format('0,0.00000000');
-                    vm.balance = a;
-                    vm.balanceRaw = b;
-                    localStorage.setItem("userBalance", b);
+                        var shortBal = parseInt(response.data['balance']); //Short Balance
+                        var longBal = parseFloat(response.data['balance']); //Long Balance
+                        var a = numeral(shortBal).format('0,0');
+                        var b = numeral(longBal).format('0,0.00000000');
+                        vm.balance = a + ' Đ';
+                        vm.balanceRaw = b + ' Đ';
+                        vm.QR = 'https://dogechain.info/api/v1/address/qrcode/' + dogeAddr;
+                        vm.visibleAddr = dogeAddr;
+                        vm.dogeConversion = b;
+                        localStorage.setItem("userBalance", b);
                 })
                 .catch(function (error) {
                     vm.balance = 'Much Error...';
                 })
         },
+
+
+        dogeExchange: function () { //Checks exchange rate
+            dogeAddr = document.getElementById('input').value //converts entered addr to dogeAddr variable.
+            var vm = this;
+            axios.get('https://api.cryptonator.com/api/ticker/doge-' + vm.country).then(function (response) { //Gets current data
+                    var dPrice = response.data.ticker['price']; //Doge Price
+                    var dCurrency = response.data.ticker['target']; //Doge Target Currency
+                    vm.dogeExchangeRate = dPrice;
+                    vm.dogeTargetCurrency = dCurrency;
+                    localStorage.setItem("exchangeRate", dPrice);
+                    localStorage.setItem("currency", dCurrency);
+                    vm.convertDoge();
+                })
+                .catch(function (error) {
+                    vm.dogeExchangeRate = 'Much Error...';
+                })
+
+        },
+
+        dogeCountry: function () {
+            vm.dogeExchangeRate = " Đ";
+            vm.dogeTargetCurrency = ''
+            vm.dogeConversion = vm.balance;
+        },
+        
+        convertDoge: function () {
+            var balance = parseFloat(vm.balanceRaw);
+            var balanceConverted = balance * vm.dogeExchangeRate;
+            vm.dogeConversion = numeral(balanceConverted).format('0,0.00');
+        },
+
 
         dogeQR: function () {
             this.QR = 'loading...';
@@ -68,12 +115,19 @@ var vm = new Vue({
                 dogeAddr = 'DCuXRganmJgArhX14CPNVAWPitpBcBHvdu';
                 var vm = this;
                 axios.get('https://dogechain.info/api/v1/address/balance/' + dogeAddr).then(function (response) {
-                        var a = parseInt(response.data['balance']);
-                        var b = parseFloat(response.data['balance']);
-                        vm.balance = a;
-                        vm.balanceRaw = b;
+                        var shortBal = parseInt(response.data['balance']); //Short Balance
+                        var longBal = parseFloat(response.data['balance']); //Long Balance
+                        var a = numeral(shortBal).format('0,0');
+                        var b = numeral(longBal).format('0,0.00000000');
+                        vm.balance = a + ' Đ';
+                        vm.balanceRaw = b + ' Đ';
                         vm.QR = 'https://dogechain.info/api/v1/address/qrcode/' + dogeAddr;
                         vm.visibleAddr = dogeAddr;
+                        vm.dogeExchangeRate = " Đ";
+                        vm.dogeTargetCurrency = ''
+                        vm.dogeConversion = vm.balance;
+                        vm.dogeCountry();
+                        
                     })
                     .catch(function (error) {
                         vm.balance = 'Much Error...';
@@ -87,10 +141,12 @@ var vm = new Vue({
                         var longBal = parseFloat(response.data['balance']); //Long Balance
                         var a = numeral(shortBal).format('0,0');
                         var b = numeral(longBal).format('0,0.00000000');
-                        vm.balance = a;
-                        vm.balanceRaw = b;
+                        vm.balance = a + ' Đ';
+                        vm.balanceRaw = b + ' Đ';
                         vm.QR = 'https://dogechain.info/api/v1/address/qrcode/' + dogeAddr;
                         vm.visibleAddr = dogeAddr;
+                        vm.dogeConversion = b;
+                        vm.dogeCountry();
 
 
                     })
@@ -128,13 +184,12 @@ var vm = new Vue({
 });
 
 function confirmAR() {
-var response = confirm("AR mode requires you to be using a mobile browser. Safari for iOS11 and Chrome for Android. You'll also need to download the target image from the info tab. Press OK to continue.");
+    var response = confirm("AR mode requires you to be using a mobile browser. Safari for iOS11 and Chrome for Android. You'll also need to download the target image from the info tab. Press OK to continue.");
 
-if ( response == true ){
-    window.open('AR.html','mywindow');
-    
-}else{
-}
+    if (response == true) {
+        window.open('AR.html', 'mywindow');
+
+    } else {}
 };
 
 

@@ -4,11 +4,60 @@
         }
 
         .navDoge {
+            width:100%;
             background-color: #E8922D;
             text-align: center;
             vertical-align: middle;
             height: 60px;
+            cursor: pointer;
+            z-index: 100;
         }
+
+        .exchangeDoge {
+            position:absolute;
+            width:100%;
+            background-color: rgba(232, 146, 45, 0.7);
+            padding-top: 1em;
+            font-size: 0.8em;
+            color: white;
+            padding-left: 2em;
+            z-index:10;
+            transition: 0s
+
+        }
+
+        .dogeBurger {
+            float: left;
+            padding-right: 1em;
+            font-size: 3em;
+            cursor: pointer;
+        }
+
+        .dogeClose {
+            float: right;
+            padding-right: 1em;
+            font-size: 3em;
+            cursor: pointer;
+        }
+
+        .currencyMenu {
+            position:absolute;
+            top:7.5em;
+            background-color: rgba(232, 146, 45, 1);
+            opacity: 0.7;
+            width: 13em;
+            height: auto;
+            overflow: hidden;
+            z-index: 9;
+            transition-duration: 0.05s
+        }
+
+        .currencyMenu p {
+            color: white;
+            padding-left: 1em;
+        }
+
+        .currencyMenu a {}
 
         .footer {
             background-color: #E8922D;
@@ -51,6 +100,7 @@
 
         .dogeCoinImage {
             padding-top: 1rem;
+            animation-delay: 0.25s;
         }
 
         wow {
@@ -135,6 +185,7 @@
 
         .bottomNav {
             background-color: #E8922D;
+            animation-delay: 0.5s;
         }
 
         .bottomNav a {
@@ -169,8 +220,13 @@
         }
 
         .modal {
+            display: flex;
             font-family: 'Open Sans', sans-serif;
             font-size: 0.8em;
+        }
+
+        .modal-background {
+            opacity: 0;
         }
 
         .modal h1 {
@@ -200,4 +256,26 @@
         .modal i {
             font-size: 2em;
             padding: 0.5em;
+        }
+
+        /*
+ * The following styles are auto-applied to elements with
+ * transition="modal" when their visibility is toggled
+ * by Vue.js.
+ *
+ * You can easily play with the modal transition by editing
+ * these styles.
+ */
+
+        .slide-leave-active,
+        .slide-enter-active {
+            transition: 1s;
+        }
+
+        .slide-enter {
+            transform: translate(100%, 0);
+        }
+
+        .slide-leave-to {
+            transform: translate(-100%, 0);
         }
