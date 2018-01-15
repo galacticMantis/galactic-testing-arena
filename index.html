@@ -178,7 +178,107 @@
             </div>
         </nav>
         <!--bottom Nav End-->
+<modal v-if="showModal" @close="showModal = false">
+            <header slot="header">
+                <h1>About this App!</h1>
+            </header>
+            <section slot="body">
+                <p>DISCLAIMER: This web app was built as a learning experiment and for entertainment purposes! Please do not use it for any financial transactions and make sure that you double and triple check with official sources for completely accurate information. If you do choose to use the information on this web app for that purpose, you do so at your own risk. I am not responsible for any inaccurate information on this web app.</p>
+                <br>
+                <h2>Download: <a href="https://galacticmantis.github.io/dogebalance/downloads/dogeAR.pdf" target="_blank">AR Target Image</a></h2><br><br>
 
+                <h1>Wow. Much hello.</h1>
+                <p class="about">
+                    You want to know more about this app?
+                    <p>The basic idea was to have a simple way to check your DOGE balance on your phone. Originally I had just planned on having you copy and paste your address into the search bar. Then I found out how to implement QR code scanning. Then I thought, well that's all really cool but you know what would be even cooler? Virtual and Augmented Reality integration! As you can tell, these features are probably extremely buggy but they sorta work! Does any other cryptocurrency have that? NO! Not to m...(line truncated)...
+
+                    <p>Why this? I wanted to learn how to use VueJS and build a functional and practical web app (Gotta do something inbetween sleep and unemployment). So I thought it would be a fun idea to make an app for all the awesome shibe that use DogeCoin. The community seems so nice and even though I'm a lurker, it's refreshing to be somewhere on the internet that is happy.</p>
+
+                    <p>In its simplest form, this app uses the dogechain.info API to check your balance and then displays it on the screen for you!</p>
+
+                    <br>
+                    <h1>Features:</h1>
+
+                    <ul>
+                        <li>1. Easily check your DOGE balance!</li>
+                        <li>2. Either type in your Public Address or Scan your QR code!</li>
+                        <li>3. Tap on your address to go to the dogechain.info site directly!</li>
+                        <li>4. You can go to the Moon with your DOGECOIN in VR!</li>
+                        <li>5. You can look at your balance with AR!</li>
+                        <li>6. If you tap your balance it'll switch between decimal and non-decimal mode.</li>
+                        <li>7. If you tap the Shibe's face it'll show you your QR code.</li>
+                        <li>8. The app will save your Public Address so that your balance will pop up automatically next time!(hopefully)</li>
+                    </ul>
+                    <br>
+
+                    <p>Note 1: to use the AR feature you need to use a target. I'm using a preset target from ARToolkit for now. I dazzled it up a little and put it in PDF form for easy printing. You can get it by <a href="https://galacticmantis.github.io/dogebalance/downloads/dogeAR.pdf" target="_blank">Clicking Here</a>.</p>
+                    <p> Note 2: AR should work natively in your mobile browser! For iPhones you have to be on iOS11 and use Safari. For Android phones I'd probably reccomend Chrome.</p>
+
+                    <p>NOTE 3: The VR feature can be used on mobile with a Google Cardboard or something similar. It can also be used with a desktop VR headset. You can also just click it in your regular browser window and it'll open a full screen 2D version!</p>
+                    <br>
+                    <br>
+
+                    <h2 class="strike">Bugs:</h2>
+                    <h2>&nbsp; Bonus features:</h2>
+
+                    <ul>
+                        <li>1. Sometimes VR mode spazzes out after getting a new address. If that happens just refresh and try again.</li>
+                        <li>2. QR scan logo is kind of hard to tap sometimes.</li>
+                        <li>3. AR mode might look weird in portrait mode. Try turning to landscape.</li>
+                        <li>4. Decimal mode doesn't show if you have a whole number of DOGE</li>
+                        <li>5. For iOS the QR camera only works in Safari. Will not work when you add to homescreen. I'm not sure about Android.</li>
+                        <li>6. If this info modal gets stuck, press the X and re-open.</li>
+                    </ul>
+                </p>
+                <br>
+                <p>I guess that's it... If you wanna check out my source code it's available on <a href="https://github.com/galacticMantis/dogebalance" target="_blank"><span class="icon"><i class="mdi mdi-github-circle"></i></span> Github</a>.</p>
+                <br>
+                <h2>Credits and stuff:</h2>
+                <p>
+                    <ul>
+                        <a href="https://vuejs.org/" target="_blank">
+                            <li>Vue.JS</li>
+                        </a>
+                        <a href="https://bulma.io/" target="_blank">
+                            <li>Bulma.IO</li>
+                        </a>
+                        <a href="https://dogechain.info/">
+                            <li>Dogechain.info API</li>
+                        </a>
+                        <a href="https://aframe.io/" target="_blank">
+                            <li>Aframe.IO</li>
+                        </a>
+                        <a href="https://github.com/jeromeetienne/AR.js" target="_blank">
+                            <li>AR.JS</li>
+                        </a>
+                        <a href="https://jquery.com/" target="_blank">
+                            <li>JQuery</li>
+                        </a>
+                        <a href="https://github.com/" target="_blank">
+                            <li>Github</li>
+                        </a>
+                        <a href="https://www.sitepoint.com/create-qr-code-reader-mobile-website/" target="_blank">
+                            <li>QRCode Scanner</li>
+                        </a>
+                        <a href="https://materialdesignicons.com/" target="_blank">
+                            <li>Material Design Icons</li>
+                        </a>
+                        <a href="https://www.reddit.com/r/dogecoin/" target="_blank">
+                            <li>Dogecoin Subreddit</li>
+                        </a>
+                    </ul>
+                </p>
+
+                <p>Thank you all for getting all the way down to the bottom of this thing. Thank you dogecoing community for inspiring me to learn how to make this thing work. Hopefully you find it useful and fun!</p>
+                <p>If you feel like I deserve it, I'd be grateful to accept any tips to my dogecoin address. Or hey maybe you're hiring a remote web designer?</p>
+                <a href="https://dogechain.info/address/DCuXRganmJgArhX14CPNVAWPitpBcBHvdu" target="_blank">
+                    <p class="visAddress">DCuXRganmJgArhX14CPNVAWPitpBcBHvdu</p>
+                </a>
+                <p>Last updated January 2018</p>
+                <p>Thank you everyone if you have any questions send me an email, galacticmantis at gmail dot com.</p>
+            </section>
+
+        </modal>   
         <!--Close info Modal-->
         <!-- modal component -->
         <script type="text/x-template" id="modal-template">
