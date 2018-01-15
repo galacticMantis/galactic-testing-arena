@@ -7,7 +7,7 @@
     <meta name="apple-mobile-web-app-title" content="Doge Balance">
     <meta name="HandheldFriendly" content="true" />
     <!--VR Scripts-->
-<!--    <script src="js/aframe.min.js"></script>-->
+    <!--    <script src="js/aframe.min.js"></script>-->
     <script src="https://aframe.io/releases/0.6.1/aframe.min.js"></script>
     <script src="js/aframe-look-at-component.js"></script>
     <!--Main App Scripts-->
@@ -22,8 +22,8 @@
     <link href="https://fonts.googleapis.com/css?family=Short+Stack" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Open+Sans+Condensed:300" rel="stylesheet">
     <link rel="stylesheet" href="css/materialdesignicons.min.css">
-    <link rel="stylesheet" type="text/css" href="style.css">
-    <link rel="stylesheet" type="text/css" href="vue-animate.min.css">
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+    <link rel="stylesheet" type="text/css" href="css/vue-animate.min.css">
     <!--icons-->
     <link rel="apple-touch-icon" sizes="57x57" href="images/icons/apple-icon-57x57.png">
     <link rel="apple-touch-icon" sizes="60x60" href="images/icons/apple-icon-60x60.png">
@@ -105,8 +105,11 @@
             <nav class="navDoge exchangeDoge" role="navigation" aria-label="main navigation" v-if="showConversion" @close="showConversion = false" @click="showCurrencies = true">
                 <div class="currentInfo">
 
-                    <div class="has-text-centered"><p>Exchange Rate</p>
-                        <h1>1Đ</h1> = <h1>{{ dogeExchangeRate }} {{ dogeTargetCurrency }}</h1></div>
+                    <div class="has-text-centered">
+                        <p>Exchange Rate</p>
+                        <h1>1Đ</h1> =
+                        <h1>{{ dogeExchangeRate }} {{ dogeTargetCurrency }}</h1>
+                    </div>
 
                     <div class="has-text-centered currentExchangeRate">Your Balance: {{ dogeConversion }}{{ dogeTargetCurrency }}<br><span class="icon dogeBurger" @click="showCurrencies = true"><i class="mdi mdi-chevron-down"></i></span></div><br><br>
 
@@ -141,47 +144,49 @@
             </aside>
         </transition>
 
-<div class="dogeContent">
+        <div class="dogeContent">
 
-        <div class="columns is-mobile">
+            <div class="columns is-mobile">
 
-            <div class="column is-half is-offset-one-quarter has-text-centered dogeCoinImage bounceIn">
-                <img alt="QR code" height="200px;" width="200px" class="mainImg" v-if="QRisActive" :src="QR" @click="QRisActive = !QRisActive">
-                <img alt="Dogecoin image" height="200px;" width="200px" class="mainImg" v-else :src="dogeCoinImg" @click="QRisActive = !QRisActive"></div>
-        </div>
-<div class="addressForm fadeIn">
-        <div class="columns is-mobile">
-
-            <div class="column is-half-desktop is-offset-one-quarter-desktop has-text-centered is-paddingless subtitleDoge">Current Balance
-                <br>
-                <div v-if="isRaw" @click="isRaw = !isRaw" class="title count">{{ balance }}</div>
-                <div v-else @click="isRaw = !isRaw" class="title">{{ balanceRaw }}</div>
+                <div class="column is-half is-offset-one-quarter has-text-centered dogeCoinImage bounceIn">
+                    <img alt="QR code" height="200px;" width="200px" class="mainImg" v-if="QRisActive" :src="QR" @click="QRisActive = !QRisActive">
+                    <img alt="Dogecoin image" height="200px;" width="200px" class="mainImg" v-else :src="dogeCoinImg" @click="QRisActive = !QRisActive"></div>
             </div>
-        </div>
+            <div class="addressForm fadeIn">
+                <div class="columns is-mobile">
 
-        <div class="columns is-mobile">
+                    <div class="column is-half-desktop is-offset-one-quarter-desktop has-text-centered is-paddingless subtitleDoge">Current Balance
+                        <br>
+                        <div v-if="isRaw" @click="isRaw = !isRaw" class="title count">{{ balance }}</div>
+                        <div v-else @click="isRaw = !isRaw" class="title">{{ balanceRaw }}</div>
+                    </div>
+                </div>
 
-            <div class="column is-half-desktop is-offset-one-quarter-desktop has-text-centered qrcode-text">
-                <input id="input" type=text placeholder="DOGE Public Address" class="qrcode-text" v-model="addr" @keyup.enter="dogeBalance(); dogeQR(); dogeVisibleAddr(); dogeClearAddr();">
-                <label class="qrcode-text-btn">
+                <div class="columns is-mobile">
+
+                    <div class="column is-half-desktop is-offset-one-quarter-desktop has-text-centered qrcode-text">
+                        <input id="input" type=text placeholder="DOGE Public Address" class="qrcode-text" v-model="addr" @keyup.enter="dogeBalance(); dogeQR(); dogeVisibleAddr(); dogeClearAddr();">
+                        <label class="qrcode-text-btn">
                     <input type=file accept="image/*" capture=environment onclick="return showQRIntro();" onchange="openQRCamera(this);" tabindex=-1>
                 </label>
-            </div>
-        </div>
-        
-            <div class="has-text-centered visAddress"><a :href="'https://dogechain.info/address/' + visibleAddr" target="_blank">{{ visibleAddr }} </a>
-    </div>
-        
-        <div class="columns is-mobile">
-            <div class="column is-half-desktop is-offset-one-quarter-desktop has-text-centered">
-                <br>
-                <div class="buttons has-addons is-centered">
-                    <button class="button is-large dogeButton" is-warning @click="dogeBalance(); dogeQR(); dogeVisibleAddr(); dogeClearAddr();">Find my Đoge</button>
+                    </div>
+                </div>
+
+                <div class="has-text-centered visAddress"><a :href="'https://dogechain.info/address/' + visibleAddr" target="_blank">{{ visibleAddr }} </a>
+                </div>
+
+                <div class="columns is-mobile">
+                    <div class="column is-half-desktop is-offset-one-quarter-desktop has-text-centered">
+                        <br>
+                        <div class="buttons has-addons is-centered">
+                            <button class="button is-large dogeButton" is-warning @click="dogeBalance(); dogeQR(); dogeVisibleAddr(); dogeClearAddr();">Find my Đoge</button>
+                        </div>
+                    </div>
                 </div>
             </div>
+            <!--Close address form-->
         </div>
-    </div><!--Close address form-->
-    </div><!--close dogeContent-->
+        <!--close dogeContent-->
         <nav class="navbar is-transparent is-fixed-bottom bottomNav fadeInUp">
             <div class="navbar-brand">
 
@@ -327,12 +332,12 @@
                     </div>
                 </div>
             </transition>
-        </script>   
+        </script>
 
     </div>
     <!--Close App-->
 
-    <script type="text/javascript" src="app.js"></script>
+    <script type="text/javascript" src="js/app.js"></script>
 
 </body>
 

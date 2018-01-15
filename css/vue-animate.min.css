@@ -479,7 +479,7 @@
 .fadeInUp,
 .fadeUp-leave-active,
 .fadeOutUp {
-  animation-duration: 1s;
+  animation-duration: 0.25s;
   animation-fill-mode: both;
 }
 .fadeUp-enter-active,
@@ -554,7 +554,7 @@
 .fadeInDownBig,
 .fadeDownBig-leave-active,
 .fadeOutDownBig {
-  animation-duration: 1s;
+  animation-duration: 0s;
   animation-fill-mode: both;
 }
 .fadeDownBig-enter-active,
@@ -569,7 +569,7 @@
 .fadeInDown,
 .fadeDown-leave-active,
 .fadeOutDown {
-  animation-duration: 1s;
+  animation-duration: 0.4s;
   animation-fill-mode: both;
 }
 .fadeDown-enter-active,
@@ -1108,4 +1108,8 @@
 .zoomDown-leave-active,
 .zoomOutDown {
   animation-name: zoomOutDown;
+}
+
+.foo {
+  animation-duration: 0.3s
 }
