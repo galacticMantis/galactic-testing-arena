@@ -90,6 +90,11 @@ var vm = new Vue({
             var balanceConverted = balance * vm.dogeExchangeRate;
             vm.dogeConversion = numeral(balanceConverted).format('0,0.00');
         },
+        
+        
+        getCurrency: function () {
+            vm.country = document.getElementById('currencyInput').value
+        },
 
 
         dogeQR: function () {

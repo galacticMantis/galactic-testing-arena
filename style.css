@@ -4,7 +4,8 @@
         }
 
         .navDoge {
-            width:100%;
+            position: relative;
+            width: 100%;
             background-color: #E8922D;
             text-align: center;
             vertical-align: middle;
@@ -14,23 +15,34 @@
         }
 
         .exchangeDoge {
-            position:absolute;
-            width:100%;
-            background-color: rgba(232, 146, 45, 0.7);
+            position: absolute;
+            width: 100%;
+            background-color: #EBB069;
             padding-top: 1em;
+            padding-bottom: 4em;
             font-size: 0.8em;
             color: white;
-            padding-left: 2em;
-            z-index:10;
-            transition: 0s
+            z-index: 99;
+            transition: 0s;
+        }
 
+        .BGClose {
+            position: absolute;
+            background-color: red;
+            height: 100%;
+            width: 100%;
+            z-index: 40;
+            opacity: 0;
         }
 
         .dogeBurger {
-            float: left;
-            padding-right: 1em;
+            position: absolute;
+            left:8em;
+            padding-top: 0.4em;
+            padding-left: 1em;
             font-size: 3em;
             cursor: pointer;
+            z-index: 2;
         }
 
         .dogeClose {
@@ -41,23 +53,55 @@
         }
 
         .currencyMenu {
-            position:absolute;
-            top:7.5em;
-            background-color: rgba(232, 146, 45, 1);
-            opacity: 0.7;
-            width: 13em;
+            position: absolute;
+            top: 7.99em;
+            background-color: #FFCE99;
+            width: 100%;
             height: auto;
             overflow: hidden;
-            z-index: 9;
+            z-index: 98;
+            text-align: center;
             transition-duration: 0.05s
         }
 
         .currencyMenu p {
-            color: white;
+            color: black;
             padding-left: 1em;
+            padding-top: 1em;
+
         }
 
-        .currencyMenu a {}
+        .currencyMenu li {
+            cursor: pointer;
+            color: #E8922D;
+            ;
+            font-size: 1.5em;
+            font-weight: 600;
+
+        }
+
+        .currencyMenu li:hover {
+            background-color: #f2f2f2;
+            transition: 0.3s;
+
+        }
+
+        .menu-list .field {
+            width: 80%;
+            margin-left: auto;
+            margin-right: auto;
+
+        }
+
+        .currencyForm {
+            width: 80%
+        }
+
+        .currencySearch {
+            width: 20%;
+
+
+        }
 
         .footer {
             background-color: #E8922D;
@@ -92,10 +136,13 @@
         }
 
         .titleDoge {
+            position: absolute;
+            margin-left: auto;
+            margin-right: auto;
+            width:100%;
             font-size: 20px;
             font-weight: bold;
             color: #F2F2F2;
-            cursor:
         }
 
         .dogeCoinImage {
@@ -186,6 +233,7 @@
         .bottomNav {
             background-color: #E8922D;
             animation-delay: 0.5s;
+            z-index: 1;
         }
 
         .bottomNav a {
@@ -223,6 +271,7 @@
             display: flex;
             font-family: 'Open Sans', sans-serif;
             font-size: 0.8em;
+            z-index: 101;
         }
 
         .modal-background {
