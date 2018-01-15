@@ -6,7 +6,8 @@
     <meta charset="UTF-8">
     <meta name="apple-mobile-web-app-title" content="Doge Balance">
     <!--VR Scripts-->
-    <script src="js/aframe.min.js"></script>
+<!--    <script src="js/aframe.min.js"></script>-->
+    <script src="https://aframe.io/releases/0.6.1/aframe.min.js"></script>
     <script src="js/aframe-look-at-component.js"></script>
     <!--Main App Scripts-->
     <!--    <script src="js/vue.min.js"></script>-->
@@ -183,7 +184,7 @@
         <nav class="navbar is-transparent is-fixed-bottom bottomNav fadeInUp">
             <div class="navbar-brand">
 
-                <div aria-label="Start VR Mode" class="navbar-item navButton" @click="startVR();">
+                <div aria-label="Start VR Mode" class="navbar-item navButton" @click="startVR()">
                     <h3>VR <span class="icon"><i class="mdi mdi-google-cardboard"></i></span></h3>
                 </div>
                 <div aria-label="Start AR Mode" class="navbar-item navButton" onclick="return confirmAR();">
@@ -325,7 +326,7 @@
                     </div>
                 </div>
             </transition>
-        </script>
+        </script>   
 
     </div>
     <!--Close App-->

@@ -245,7 +245,7 @@
             opacity: 0
         }
 
-        .visAddress {
+        .visAddress a{
             font-size: 0.7em;
             color: #E8922D;
         }
