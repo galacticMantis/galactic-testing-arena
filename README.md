@@ -1,6 +1,6 @@
 # Doge Balance
 
-![Dogecoin AR Target](https://github.com/galacticMantis/galactic-testing-arena/blob/master/images/dogeBalanceAnim.gif)
+![Dogecoin AR Target](https://raw.githubusercontent.com/galacticMantis/galactic-testing-arena/master/images/dogeBalanceAnim.gif)
 
 This is a web based Dogecoin balance checker hosted on Github. It gives you a simple and easy way to check your dogecoin balance on your phone. What is special about this is that it also lets you check your balance in Virtual and Augmented Reality! 
 
