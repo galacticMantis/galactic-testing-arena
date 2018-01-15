@@ -1,7 +1,16 @@
-        body {
+html{
+    background-color:#F2F2F2;
+}
+
+body {
             background-color: #F2F2F2;
             font-family: 'Short Stack', sans-serif;
         }
+
+#app{
+    height:auto;
+    
+}
 
         .navDoge {
             position: relative;
