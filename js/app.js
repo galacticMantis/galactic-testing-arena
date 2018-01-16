@@ -65,8 +65,10 @@ var vm = new Vue({
 
 
         dogeExchange: function () { //Checks exchange rate
+            var vm = this;     
+            if (vm.country != 'doge'){ //If country isn't doge don't do this.
             dogeAddr = document.getElementById('input').value //converts entered addr to dogeAddr variable.
-            var vm = this;
+
             axios.get('https://api.cryptonator.com/api/ticker/doge-' + vm.country).then(function (response) { //Gets current data
                     var dPrice = response.data.ticker['price']; //Doge Price
                     var dCurrency = response.data.ticker['target']; //Doge Target Currency
@@ -79,7 +81,7 @@ var vm = new Vue({
                 .catch(function (error) {
                     vm.dogeExchangeRate = 'Much Error...';
                 })
-
+};
         },
 
         dogeCountry: function () {
