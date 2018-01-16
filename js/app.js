@@ -33,6 +33,7 @@ var vm = new Vue({
         showModal: false,
         showConversion: false,
         showCurrencies: false,
+        intBalance: ''
 
     },
     created: function () {
@@ -49,6 +50,7 @@ var vm = new Vue({
                     var longBal = parseFloat(response.data['balance']); //Long Balance
                     var a = numeral(shortBal).format('0,0');
                     var b = numeral(longBal).format('0,0.00000000');
+                    vm.intBalance = longBal;
                     vm.balance = a + ' Đ';
                     vm.balanceRaw = b + ' Đ';
                     vm.QR = 'https://dogechain.info/api/v1/address/qrcode/' + dogeAddr;
@@ -90,13 +92,6 @@ var vm = new Vue({
             vm.dogeConversion = vm.balance;
         },
 
-        convertDoge: function () {
-            var balance = parseFloat(vm.balanceRaw);
-            var balanceConverted = balance * vm.dogeExchangeRate;
-            vm.dogeConversion = numeral(balanceConverted).format('0,0.00');
-        },
-
-
         getCurrency: function () {
             vm.country = document.getElementById('currencyInput').value
         },
@@ -129,6 +124,7 @@ var vm = new Vue({
                         var longBal = parseFloat(response.data['balance']); //Long Balance
                         var a = numeral(shortBal).format('0,0');
                         var b = numeral(longBal).format('0,0.00000000');
+                        vm.intBalance = longBal;
                         vm.balance = a + ' Đ';
                         vm.balanceRaw = b + ' Đ';
                         vm.QR = 'https://dogechain.info/api/v1/address/qrcode/' + dogeAddr;
@@ -151,6 +147,7 @@ var vm = new Vue({
                         var longBal = parseFloat(response.data['balance']); //Long Balance
                         var a = numeral(shortBal).format('0,0');
                         var b = numeral(longBal).format('0,0.00000000');
+                        vm.intBalance = longBal;
                         vm.balance = a + ' Đ';
                         vm.balanceRaw = b + ' Đ';
                         vm.QR = 'https://dogechain.info/api/v1/address/qrcode/' + dogeAddr;
@@ -191,6 +188,12 @@ var vm = new Vue({
             var copyText = vm.visibleAddr;
             window.clipboardData.setData("Text", input.val());
             alert("Copied the text: " + copyText.value);
+        },
+        
+            convertDoge: function () {
+            var balance = parseFloat(vm.intBalance);
+            var balanceConverted = balance * vm.dogeExchangeRate;
+            vm.dogeConversion = numeral(balanceConverted).format('0,0.00');
         },
 
 

@@ -125,8 +125,8 @@
                 </p>
                 <ul class="menu-list">
                     <li @click="country = ('doge'), dogeCountry(), showCurrencies = false">DOGE</li>
-                    <li @click="country = ('usd'), dogeExchange(), showCurrencies = false">USD</li>
-                    <li @click="country = ('eur'), dogeExchange(), showCurrencies = false">EUR</li>
+                    <li @click="country = ('usd'), dogeExchange(), convertDoge(), showCurrencies = false">USD</li>
+                    <li @click="country = ('eur'), dogeExchange(), convertDoge(), showCurrencies = false">EUR</li>
                     <br>
                     <div class="field has-addons">
                         <div class="control currencyForm">
