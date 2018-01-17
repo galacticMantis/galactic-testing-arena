@@ -50,7 +50,7 @@ var vm = new Vue({
     created: function () {
         this.dogeDefault(); //Gets the information for my default address to fill in everything.
     },
-    
+
     methods: {
 
         dogeBalance: function () { //Checks balance for dogeaddress.
@@ -74,11 +74,11 @@ var vm = new Vue({
                 })
                 .catch(function (error) {
                     alert('Such Invalid Address...');
-                if (localStorage.getItem("slot1") === ''){
-                    vm.visibleAddr = localStorage.getItem("slot1");
-                }else{
-                    vm.visibleAddr = 'DCuXRganmJgArhX14CPNVAWPitpBcBHvdu';
-                    localStorage.setItem("userBalance", null);
+                    if (localStorage.getItem("slot1") === '') {
+                        vm.visibleAddr = localStorage.getItem("slot1");
+                    } else {
+                        vm.visibleAddr = 'DCuXRganmJgArhX14CPNVAWPitpBcBHvdu';
+                        localStorage.setItem("userBalance", null);
                     }
                 })
         },
