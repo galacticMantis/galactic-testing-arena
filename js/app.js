@@ -7,6 +7,13 @@
 //I also thought it would be fun to have VR and AR versions of a dogecoin balance checker.
 //I'm sure everything can be optimized and made a lot better but the point is that it works!
 
+
+//localStorage variables
+//userBalance = How much doge the user has
+//userAddr = The last address the user checked
+//exchangeRate = Current price of 1 doge
+//currency = the selected currency exchange
+
 Vue.component('modal', {
     template: '#modal-template'
 })
@@ -33,7 +40,10 @@ var vm = new Vue({
         showModal: false,
         showConversion: false,
         showCurrencies: false,
-        intBalance: ''
+        intBalance: '',
+        slot1: localStorage.getItem("slot1"),
+        slot2: localStorage.getItem("slot2"),
+        slot3: localStorage.getItem("slot3"),
 
     },
     created: function () {
@@ -57,6 +67,8 @@ var vm = new Vue({
                     vm.visibleAddr = dogeAddr;
                     vm.dogeConversion = b;
                     localStorage.setItem("userBalance", b);
+                    vm.convertDoge();
+
                 })
                 .catch(function (error) {
                     vm.balance = 'Much error...';
@@ -67,23 +79,23 @@ var vm = new Vue({
 
 
         dogeExchange: function () { //Checks exchange rate
-            var vm = this;     
-            if (vm.country != 'doge'){ //If country isn't doge don't do this.
-            dogeAddr = document.getElementById('input').value //converts entered addr to dogeAddr variable.
+            var vm = this;
+            if (vm.country != 'doge') { //If country isn't doge don't do this.
+                dogeAddr = document.getElementById('input').value //converts entered addr to dogeAddr variable.
 
-            axios.get('https://api.cryptonator.com/api/ticker/doge-' + vm.country).then(function (response) { //Gets current data
-                    var dPrice = response.data.ticker['price']; //Doge Price
-                    var dCurrency = response.data.ticker['target']; //Doge Target Currency
-                    vm.dogeExchangeRate = dPrice;
-                    vm.dogeTargetCurrency = dCurrency;
-                    localStorage.setItem("exchangeRate", dPrice);
-                    localStorage.setItem("currency", dCurrency);
-                    vm.convertDoge();
-                })
-                .catch(function (error) {
-                    vm.dogeExchangeRate = 'Much Error...';
-                })
-};
+                axios.get('https://api.cryptonator.com/api/ticker/doge-' + vm.country).then(function (response) { //Gets current data
+                        var dPrice = response.data.ticker['price']; //Doge Price
+                        var dCurrency = response.data.ticker['target']; //Doge Target Currency
+                        vm.dogeExchangeRate = dPrice;
+                        vm.dogeTargetCurrency = dCurrency;
+                        localStorage.setItem("exchangeRate", dPrice);
+                        localStorage.setItem("currency", dCurrency);
+                        vm.convertDoge();
+                    })
+                    .catch(function (error) {
+                        vm.dogeExchangeRate = 'Much Error...';
+                    })
+            };
         },
 
         dogeCountry: function () {
@@ -115,15 +127,17 @@ var vm = new Vue({
 
 
         dogeDefault: function () { //performs the same functions as above but with default values in place.
-            if (localStorage.getItem("userAddr") === null || ''){ //hollyy woww. I can't believe I actually got this working! Checks if the user has entered an address before. If they have it reloads from local storage!
+            if (localStorage.getItem("userAddr") === null || '') { //hollyy woww. I can't believe I actually got this working! Checks if the user has entered an address before. If they have it reloads from local storage!
                 this.balance = 'loading...';
                 dogeAddr = 'DCuXRganmJgArhX14CPNVAWPitpBcBHvdu';
+                localStorage.setItem("userAddr", dogeAddr);
                 var vm = this;
                 axios.get('https://dogechain.info/api/v1/address/balance/' + dogeAddr).then(function (response) {
                         var shortBal = parseInt(response.data['balance']); //Short Balance
                         var longBal = parseFloat(response.data['balance']); //Long Balance
                         var a = numeral(shortBal).format('0,0');
                         var b = numeral(longBal).format('0,0.00000000');
+                        localStorage.setItem("userBalance", b);
                         vm.intBalance = longBal;
                         vm.balance = a + ' Đ';
                         vm.balanceRaw = b + ' Đ';
@@ -141,7 +155,8 @@ var vm = new Vue({
             } else {
                 this.balance = 'loading...';
                 var dogeAddr = localStorage.getItem("userAddr");
-                var vm = this;  
+                localStorage.setItem("userAddr", dogeAddr);
+                var vm = this;
                 axios.get('https://dogechain.info/api/v1/address/balance/' + dogeAddr).then(function (response) {
                         var shortBal = parseInt(response.data['balance']); //Short Balance
                         var longBal = parseFloat(response.data['balance']); //Long Balance
@@ -154,6 +169,7 @@ var vm = new Vue({
                         vm.visibleAddr = dogeAddr;
                         vm.dogeConversion = b;
                         vm.dogeCountry();
+                        localStorage.setItem("userBalance", b);
 
 
                     })
@@ -168,12 +184,30 @@ var vm = new Vue({
             dogeAddr = document.getElementById('input').value
             var vm = this;
             vm.visibleAddr = dogeAddr;
-            localStorage.setItem("userAddr", dogeAddr);
+            vm.previousAddress();
         },
 
 
         dogeClearAddr: function () { //Clears the form after pressing main button.
             this.addr = '';
+        },
+
+
+        showConversionMenu: function () { //Clears the form after pressing main button.
+            if (vm.showConversion === false) {
+                vm.showConversion = true;
+            } else {
+                vm.showConversion = false;
+                vm.showCurrencies = false;
+            }
+        },
+
+        showCurrenciesMenu: function () { //Clears the form after pressing main button.
+            if (vm.showCurrencies === false) {
+                vm.showCurrencies = true;
+            } else {
+                vm.showCurrencies = false;
+            }
         },
 
         startVR: function () { //Unhides the VR scene and makes it full screen.
@@ -189,13 +223,65 @@ var vm = new Vue({
             window.clipboardData.setData("Text", input.val());
             alert("Copied the text: " + copyText.value);
         },
-        
-            convertDoge: function () {
+
+        convertDoge: function () {
             var balance = parseFloat(vm.intBalance);
             var balanceConverted = balance * vm.dogeExchangeRate;
-            vm.dogeConversion = numeral(balanceConverted).format('0,0.00');
+
+            if (vm.country === 'usd' || vm.country === 'eur' || vm.country === 'gbp' || vm.country === 'aud') {
+                vm.dogeConversion = numeral(balanceConverted).format('0,0.00');
+            } else {
+                vm.dogeConversion = numeral(balanceConverted).format('0,0.0000000');
+            }
         },
 
+        previousAddress: function () {
+
+            if (localStorage.getItem("userAddr") != null || '') { //Is User address empty?
+
+                if (localStorage.getItem("slot1") === null || '') { //slot 1 is empty
+                    localStorage.setItem("slot1", localStorage.getItem("userAddr")); //Then set slot 1 to current address
+                            vm.slot1 = localStorage.getItem("slot1");
+                            vm.slot2 = '';
+                            vm.slot3 = '';
+                } else { //Slot 1 is NOT empty. Check slot 2.
+
+                    if (localStorage.getItem("slot2") === null || '') { //slot 2 is empty.
+                        localStorage.setItem("slot2", localStorage.getItem("slot1")); //Then set to previous address
+                            localStorage.setItem("slot1", vm.visibleAddr); //Then set slot 1 to current address
+                            vm.slot1 = localStorage.getItem("slot1");
+                            vm.slot2 = localStorage.getItem("slot2");
+                            vm.slot3 = '';
+                    } else { //slot 2 is not empty. Check slot 3.
+
+                        if (localStorage.getItem("slot3") === null || '') { //slot 3 is empty?
+                            localStorage.setItem("slot3", localStorage.getItem("slot2")); //Then set slot 2 to slot 3 address
+                            localStorage.setItem("slot2", localStorage.getItem("slot1")); //Then slot 1 to slot 2 address
+                            localStorage.setItem("slot1", vm.visibleAddr); //Then set slot 1 to current address
+                            vm.slot1 = localStorage.getItem("slot1");
+                            vm.slot2 = localStorage.getItem("slot2");
+                            vm.slot3 = localStorage.getItem("slot3");
+                        } else { //Slot 3 is not empty. My brain is starting to collapse.
+                            localStorage.setItem("slot3", localStorage.getItem("slot2")); //Then set slot 2 to slot 3 address
+                            localStorage.setItem("slot2", localStorage.getItem("slot1")); //Then slot 1 to slot 2 address
+                            localStorage.setItem("slot1", vm.visibleAddr); //Then set slot 1 to current address
+                            vm.slot1 = localStorage.getItem("slot1");
+                            vm.slot2 = localStorage.getItem("slot2");
+                            vm.slot3 = localStorage.getItem("slot3");
+
+                        } //slot 3 else
+
+                    } //slot 2 else
+
+                } //slot 1 else
+
+            } else { //If it is empty then do this
+                localStorage.setItem("userAddr", vm.visibleAddr);
+                localStorage.setItem("slot1", localStorage.getItem("userAddr"));
+            }
+
+
+        },
 
 
     }
@@ -230,3 +316,12 @@ function openQRCamera(node) { //Opens the camera or file explorer to get a pictu
 function showQRIntro() {
     return confirm("Very Camera. So QR scanner. Now Open."); //Just a notice before it opens the camera. Not sure if it is really needed but it is a nice courtesy. 
 };
+
+
+function updatePrices() { //This runs the DogeExchange function every 35 seconds to keep the price updated.
+    vm.dogeExchange();
+}
+
+setInterval(function () {
+    updatePrices()
+}, 35000);
