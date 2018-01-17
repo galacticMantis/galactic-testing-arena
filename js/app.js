@@ -74,11 +74,10 @@ var vm = new Vue({
                 })
                 .catch(function (error) {
                     alert('Such Invalid Address...');
-                    if (localStorage.getItem("slot1") === '') {
-                        vm.visibleAddr = localStorage.getItem("slot1");
+                    if (localStorage.getItem("slot1") != null) {
+                        vm.visibleAddr = localStorage.getItem("slot2");
                     } else {
                         vm.visibleAddr = 'DCuXRganmJgArhX14CPNVAWPitpBcBHvdu';
-                        localStorage.setItem("userBalance", null);
                     }
                 })
         },
@@ -103,9 +102,12 @@ var vm = new Vue({
 
                 })
                 .catch(function (error) {
-                    vm.balance = 'Much error...';
-                    alert('Such Invalid Address...');
-                    localStorage.setItem("userBalance", null);
+                if (localStorage.getItem("slot1") != null) {
+                        vm.visibleAddr = localStorage.getItem("slot1");
+                    } else {
+                        vm.visibleAddr = 'DCuXRganmJgArhX14CPNVAWPitpBcBHvdu';
+                        localStorage.setItem("userBalance", null);
+                    }
                 })
         },
 
