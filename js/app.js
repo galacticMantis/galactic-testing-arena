@@ -66,16 +66,18 @@ var vm = new Vue({
                     vm.balance = a + ' Đ';
                     vm.balanceRaw = b + ' Đ';
                     vm.QR = 'https://dogechain.info/api/v1/address/qrcode/' + dogeAddr;
-                    vm.visibleAddr = dogeAddr;
                     vm.dogeConversion = b;
                     localStorage.setItem("userBalance", b);
+                    vm.previousAddress();
                     vm.convertDoge();
 
                 })
                 .catch(function (error) {
                     alert('Such Invalid Address...');
-                    if (localStorage.getItem("slot1") != null) {
-                        vm.visibleAddr = localStorage.getItem("slot2");
+                    if (localStorage.getItem("slot1") != null) {//Slot1 is not empty
+                        vm.visibleAddr = localStorage.getItem("slot1");
+                        localStorage.setItem("userAddr", localStorage.getItem("slot1"));
+                        vm.slot1 = localStorage.getItem("slot1");
                     } else {
                         vm.visibleAddr = 'DCuXRganmJgArhX14CPNVAWPitpBcBHvdu';
                     }
@@ -217,7 +219,8 @@ var vm = new Vue({
             dogeAddr = document.getElementById('input').value
             var vm = this;
             vm.visibleAddr = dogeAddr;
-            vm.previousAddress();
+//            vm.previousAddress();
+            
         },
 
 
@@ -327,9 +330,7 @@ var vm = new Vue({
                 localStorage.setItem("userAddr", document.getElementById('input').value);
                 localStorage.setItem("slot1", document.getElementById('input').value);
                 vm.slot1 = localStorage.getItem("slot1");
-            }
-
-
+            }      
         },
 
     }
