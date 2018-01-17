@@ -189,13 +189,13 @@
                     </div>
                 </div>
 
-                <div class="has-text-centered visAddress"><a :href="'https://dogechain.info/address/' + visibleAddr" target="_blank">{{ visibleAddr }} </a>
-                    <div class="previousAddress">
+                <div class="has-text-centered visAddress"><a @click="showPreviousAddressMenu();">{{ visibleAddr }} </a>
+                    <div v-if="showPrevAddrMenu" class="previousAddress">
                         <p>Previous Addresses</p>
                     <ul>
-                    <li>{{ slot1 }}</li>    
-                    <li>{{ slot2 }}</li>    
-                    <li>{{ slot3 }}</li>    
+                    <li @click="visibleAddr = slot1; previousAddressBalance(); dogeExchange();">{{ slot1 }}</li>    
+                    <li @click="visibleAddr = slot2; previousAddressBalance(); dogeExchange();">{{ slot2 }}</li>    
+                    <li @click="visibleAddr = slot3; previousAddressBalance(); dogeExchange();">{{ slot3 }}</li>    
                     </ul>
                     
                     </div>
