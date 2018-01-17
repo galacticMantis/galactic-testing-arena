@@ -88,15 +88,16 @@
                     <a-text id="VRDogeBalance" color="yellow" align='center' position="0. -0.6 1.522" rotation="-13 0 0" v-bind:value="balanceRaw + ' DOGE'"></a-text>
 
                     <a-text id="VRAddr" material="metalness:0;" align='center' position="0 -0.8 1.539" rotation="-13 0 0" height="1" width="2" v-bind:value="visibleAddr"></a-text>
-                    
+
                     <a-text id="1Dis1DVR" align="center" position="0.1 3 0.332" rotation="0 0 0" v-bind:value="'1D = ' + dogeExchangeRate + country" scale="1 1 1" visible="true"></a-text>
-                    
+
                 </a-entity>
                 <a-image id="Ground" height="50" width="150" rotation="90 0 0" position="0 0 0" src="#moonSurface"></a-image>
             </a-scene>
         </div>
         <!--This is where the VR ends-->
         <div class="BGClose" v-if="showConversion" @click="showCurrenciesMenu(), showConversionMenu()"></div>
+        <div class="previousAddressBGClose" v-if="showPrevAddrMenu" @click="showPreviousAddressMenu()"></div>
         <nav class="navDoge fadeInDown" role="navigation" aria-label="main navigation" @click="showConversionMenu()">
             <div class="titleDoge">
                 <wow>DOGECOIN</wow> <img alt="Flat Dogecoin Image" class="dogeIcon" src="images/dogeIcon.png">
@@ -153,13 +154,13 @@
 
                 <div class="column is-half is-offset-one-quarter has-text-centered dogeCoinImage bounceIn">
                     <transition name="fade" mode="out-in">
-                    <div key="1" v-if="QRisActive">
-                    <img alt="QR code" height="200px;" width="200px" class="mainImg" v-if="QRisActive" :src="QR" @click="QRisActive = !QRisActive">
-                    </div>
-                    
-                    <div key="2" v-if="!QRisActive">
-                    <img alt="Dogecoin image" height="200px;" width="200px" class="mainImg" :src="dogeCoinImg" @click="QRisActive = !QRisActive">
-                    </div>
+                        <div key="1" v-if="QRisActive">
+                            <img alt="QR code" height="200px;" width="200px" class="mainImg" v-if="QRisActive" :src="QR" @click="QRisActive = !QRisActive">
+                        </div>
+
+                        <div key="2" v-if="!QRisActive">
+                            <img alt="Dogecoin image" height="200px;" width="200px" class="mainImg" :src="dogeCoinImg" @click="QRisActive = !QRisActive">
+                        </div>
                     </transition>
                 </div>
             </div>
@@ -169,12 +170,12 @@
                     <div class="column is-half-desktop is-offset-one-quarter-desktop has-text-centered is-paddingless subtitleDoge">Current Balance
                         <br>
                         <transition name="fade" mode="out-in">
-                        <div key="1" v-if="isRaw">
-                        <div @click="isRaw = !isRaw" class="title count">{{ balance }}</div>
-                        </div>
-                        <div key="2" v-if="!isRaw">
-                        <div @click="isRaw = !isRaw" class="title">{{ balanceRaw }}</div>
-                        </div>
+                            <div key="1" v-if="isRaw">
+                                <div @click="isRaw = !isRaw" class="title count">{{ balance }}</div>
+                            </div>
+                            <div key="2" v-if="!isRaw">
+                                <div @click="isRaw = !isRaw" class="title">{{ balanceRaw }}</div>
+                            </div>
                         </transition>
                     </div>
                 </div>
@@ -189,15 +190,15 @@
                     </div>
                 </div>
 
-                <div class="has-text-centered visAddress"><a @click="showPreviousAddressMenu();">{{ visibleAddr }} </a>
-                    <div v-if="showPrevAddrMenu" class="previousAddress">
+                <div class="has-text-centered visAddress"><a @click="showPreviousAddressMenu">{{ visibleAddr }} </a>
+                    <div v-if="showPrevAddrMenu" v-click-outside="showPreviousAddressMenu" class="previousAddress column is-full-mobile is-half-tablet is-half-desktop is-offset-one-quarter">
                         <p>Previous Addresses</p>
-                    <ul>
-                    <li @click="visibleAddr = slot1; previousAddressBalance(); dogeExchange();">{{ slot1 }}</li>    
-                    <li @click="visibleAddr = slot2; previousAddressBalance(); dogeExchange();">{{ slot2 }}</li>    
-                    <li @click="visibleAddr = slot3; previousAddressBalance(); dogeExchange();">{{ slot3 }}</li>    
-                    </ul>
-                    
+                        <ul>
+                            <li @click="visibleAddr = slot1; previousAddressBalance(); dogeExchange(); showPreviousAddressMenu();">{{ slot1 }}</li>
+                            <li @click="visibleAddr = slot2; previousAddressBalance(); dogeExchange(); showPreviousAddressMenu();">{{ slot2 }}</li>
+                            <li @click="visibleAddr = slot3; previousAddressBalance(); dogeExchange(); showPreviousAddressMenu();">{{ slot3 }}</li>
+                        </ul>
+
                     </div>
                 </div>
 
@@ -260,7 +261,7 @@
                             <li>6. If you tap your balance it'll switch between decimal and non-decimal mode.</li>
                             <li>7. If you tap the Shibe's face it'll show you your QR code.</li>
                             <li>8. The app will save your Public Address so that your balance will pop up automatically next time!(hopefully)</li>
-                            <li>9.  1Đ will always be 1Đ but if for some reason you want to check the current exchange rate tap the top bar to open the panel. Tap that panel to choose or enter a currency.</li>
+                            <li>9. 1Đ will always be 1Đ but if for some reason you want to check the current exchange rate tap the top bar to open the panel. Tap that panel to choose or enter a currency.</li>
                             <li>10. The currency rate you choose will refresh automatically every 35 seconds.</li>
                         </ul>
                         <br>
@@ -298,7 +299,7 @@
                             </a>
                             <a href="https://dogechain.info/">
                                 <li>Dogechain.info API</li>
-                            </a>                            
+                            </a>
                             <a href="https://www.cryptonator.com/">
                                 <li>Cryptonator.com</li>
                             </a>

@@ -50,10 +50,11 @@ var vm = new Vue({
     created: function () {
         this.dogeDefault(); //Gets the information for my default address to fill in everything.
     },
+    
     methods: {
 
         dogeBalance: function () { //Checks balance for dogeaddress.
-            this.balance = 'loading...';
+
             dogeAddr = document.getElementById('input').value //converts entered addr to dogeAddr variable.
             var vm = this;
             axios.get('https://dogechain.info/api/v1/address/balance/' + dogeAddr).then(function (response) { //puts dogeAddr variable at the end of the URL to get the balance.
@@ -72,29 +73,33 @@ var vm = new Vue({
 
                 })
                 .catch(function (error) {
-                    vm.balance = 'Much error...';
                     alert('Such Invalid Address...');
+                if (localStorage.getItem("slot1") === ''){
+                    vm.visibleAddr = localStorage.getItem("slot1");
+                }else{
+                    vm.visibleAddr = 'DCuXRganmJgArhX14CPNVAWPitpBcBHvdu';
                     localStorage.setItem("userBalance", null);
+                    }
                 })
         },
 
         previousAddressBalance: function () { //Checks balance for dogeaddress.
             this.balance = 'loading...';
-                var vm = this;
-                var dogeAddr = vm.visibleAddr;
-                axios.get('https://dogechain.info/api/v1/address/balance/' + dogeAddr).then(function (response) { //puts dogeAddr variable at the end of the URL to get the balance.
-                        var shortBal = parseInt(response.data['balance']); //Short Balance
-                        var longBal = parseFloat(response.data['balance']); //Long Balance
-                        var a = numeral(shortBal).format('0,0');
-                        var b = numeral(longBal).format('0,0.00000000');
-                        vm.intBalance = longBal;
-                        vm.balance = a + ' Đ';
-                        vm.balanceRaw = b + ' Đ';
-                        vm.QR = 'https://dogechain.info/api/v1/address/qrcode/' + dogeAddr;
-                        vm.visibleAddr = dogeAddr;
-                        vm.dogeConversion = b;
-                        localStorage.setItem("userBalance", b);
-                        vm.convertDoge();
+            var vm = this;
+            var dogeAddr = vm.visibleAddr;
+            axios.get('https://dogechain.info/api/v1/address/balance/' + dogeAddr).then(function (response) { //puts dogeAddr variable at the end of the URL to get the balance.
+                    var shortBal = parseInt(response.data['balance']); //Short Balance
+                    var longBal = parseFloat(response.data['balance']); //Long Balance
+                    var a = numeral(shortBal).format('0,0');
+                    var b = numeral(longBal).format('0,0.00000000');
+                    vm.intBalance = longBal;
+                    vm.balance = a + ' Đ';
+                    vm.balanceRaw = b + ' Đ';
+                    vm.QR = 'https://dogechain.info/api/v1/address/qrcode/' + dogeAddr;
+                    vm.visibleAddr = dogeAddr;
+                    vm.dogeConversion = b;
+                    localStorage.setItem("userBalance", b);
+                    vm.convertDoge();
 
                 })
                 .catch(function (error) {
@@ -120,7 +125,7 @@ var vm = new Vue({
                     .catch(function (error) {
                         vm.dogeExchangeRate = 'Much Error...';
                     })
-            }else{
+            } else {
                 vm.dogeCountry();
             }
         },
@@ -235,8 +240,8 @@ var vm = new Vue({
                 vm.showCurrencies = false;
             }
         },
-        
-        
+
+
         showPreviousAddressMenu: function () { //Clears the form after pressing main button.
             if (vm.showPrevAddrMenu === false) {
                 vm.showPrevAddrMenu = true;
@@ -262,13 +267,15 @@ var vm = new Vue({
         convertDoge: function () {
             var balance = parseFloat(vm.intBalance);
             var balanceConverted = balance * vm.dogeExchangeRate;
-            if (vm.country === 'doge'){vm.dogeConversion = vm.balance}else{
-            if (vm.country === 'usd' || vm.country === 'eur' || vm.country === 'gbp' || vm.country === 'aud') {
-                vm.dogeConversion = numeral(balanceConverted).format('0,0.00');
+            if (vm.country === 'doge') {
+                vm.dogeConversion = vm.balance
             } else {
-                vm.dogeConversion = numeral(balanceConverted).format('0,0.0000000');
-            }
+                if (vm.country === 'usd' || vm.country === 'eur' || vm.country === 'gbp' || vm.country === 'aud') {
+                    vm.dogeConversion = numeral(balanceConverted).format('0,0.00');
+                } else {
+                    vm.dogeConversion = numeral(balanceConverted).format('0,0.0000000');
                 }
+            }
         },
 
         previousAddress: function () {
@@ -323,10 +330,10 @@ var vm = new Vue({
 
         },
 
-
     }
 
 });
+
 
 function confirmAR() {
     var response = confirm("AR mode requires you to be using a mobile browser. Safari for iOS11 and Chrome for Android. You'll also need to download the target image from the info tab. Press OK to continue.");
