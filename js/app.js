@@ -58,8 +58,11 @@ var vm = new Vue({
             dogeAddr = document.getElementById('input').value //converts entered addr to dogeAddr variable.
             var vm = this;
             axios.get('https://dogechain.info/api/v1/address/balance/' + dogeAddr).then(function (response) { //puts dogeAddr variable at the end of the URL to get the balance.
+                var successAddress = response.data['success'];
                     var shortBal = parseInt(response.data['balance']); //Short Balance
                     var longBal = parseFloat(response.data['balance']); //Long Balance
+                
+                if (successAddress == 1){
                     var a = numeral(shortBal).format('0,0');
                     var b = numeral(longBal).format('0,0.00000000');
                     vm.intBalance = longBal;
@@ -70,6 +73,7 @@ var vm = new Vue({
                     localStorage.setItem("userBalance", b);
                     vm.previousAddress();
                     vm.convertDoge();
+                    }
 
                 })
                 .catch(function (error) {
@@ -219,7 +223,6 @@ var vm = new Vue({
             dogeAddr = document.getElementById('input').value
             var vm = this;
             vm.visibleAddr = dogeAddr;
-//            vm.previousAddress();
             
         },
 
@@ -285,10 +288,10 @@ var vm = new Vue({
 
         previousAddress: function () {
 
-            if (localStorage.getItem("userAddr") != null || '') { //Is User address empty?
+            if (localStorage.getItem("userAddr") != null || '') { //UserAddr is not empty.
                 if (localStorage.getItem("slot1") === null || '') { //slot 1 is empty
                     localStorage.setItem("slot1", localStorage.getItem("userAddr")); //Then set slot 1 to current address
-                    vm.slot1 = localStorage.getItem("slot1");
+                    vm.slot1 = localStorage.getItem("userAddr");
                     vm.slot2 = '';
                     vm.slot3 = '';
                     localStorage.setItem("userAddr", vm.visibleAddr);
@@ -329,7 +332,6 @@ var vm = new Vue({
             } else { //If it is empty then do this
                 localStorage.setItem("userAddr", document.getElementById('input').value);
                 localStorage.setItem("slot1", document.getElementById('input').value);
-                vm.slot1 = localStorage.getItem("slot1");
             }      
         },
 
