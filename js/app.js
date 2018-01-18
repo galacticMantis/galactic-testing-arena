@@ -56,6 +56,7 @@ var vm = new Vue({
         dogeBalance: function () { //Checks balance for dogeaddress.
 
             dogeAddr = document.getElementById('input').value //converts entered addr to dogeAddr variable.
+            localStorage.setItem("userAddr", document.getElementById('input').value);
             var vm = this;
             axios.get('https://dogechain.info/api/v1/address/balance/' + dogeAddr).then(function (response) { //puts dogeAddr variable at the end of the URL to get the balance.
                 var successAddress = response.data['success'];
@@ -82,6 +83,7 @@ var vm = new Vue({
                         vm.visibleAddr = localStorage.getItem("slot1");
                         localStorage.setItem("userAddr", localStorage.getItem("slot1"));
                         vm.slot1 = localStorage.getItem("slot1");
+                        vm.QR = 'https://dogechain.info/api/v1/address/qrcode/' + vm.visibleAddr;
                     } else {
                         vm.visibleAddr = 'DCuXRganmJgArhX14CPNVAWPitpBcBHvdu';
                     }
@@ -330,8 +332,10 @@ var vm = new Vue({
                 } //slot 1 else
 
             } else { //If it is empty then do this
+                alert('is EMPTY OMG');
                 localStorage.setItem("userAddr", document.getElementById('input').value);
                 localStorage.setItem("slot1", document.getElementById('input').value);
+                vm.slot1 = localStorage.getItem("slot1");
             }      
         },
 
