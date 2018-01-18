@@ -191,9 +191,9 @@
                     <div v-if="showPrevAddrMenu" v-click-outside="showPreviousAddressMenu" class="previousAddress column is-full-mobile is-half-tablet is-half-desktop is-offset-one-quarter">
                         <p>Previous Addresses</p>
                         <ul>
-                            <li @click="visibleAddr = slot1; previousAddressBalance(); dogeExchange(); showPreviousAddressMenu();">{{ slot1 }}</li>
-                            <li @click="visibleAddr = slot2; previousAddressBalance(); dogeExchange(); showPreviousAddressMenu();">{{ slot2 }}</li>
-                            <li @click="visibleAddr = slot3; previousAddressBalance(); dogeExchange(); showPreviousAddressMenu();">{{ slot3 }}</li>
+                            <li v-if="slot1" @click="visibleAddr = slot1; previousAddressBalance(); dogeExchange(); showPreviousAddressMenu();">{{ slot1 }}</li>
+                            <li v-if="slot2" @click="visibleAddr = slot2; previousAddressBalance(); dogeExchange(); showPreviousAddressMenu();">{{ slot2 }}</li>
+                            <li v-if="slot3" @click="visibleAddr = slot3; previousAddressBalance(); dogeExchange(); showPreviousAddressMenu();">{{ slot3 }}</li>
                         </ul>
 
                     </div>
