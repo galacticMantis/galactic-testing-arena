@@ -131,7 +131,7 @@
                     <li @click="country = ('usd'), dogeExchange(), convertDoge(), showCurrencies = false">USD</li>
                     <li @click="country = ('eur'), dogeExchange(), convertDoge(), showCurrencies = false">EUR</li>
                     <br>
-                    <div class="field has-addons">
+                    <div class="field has-addons column is-half-desktop">
                         <div class="control currencyForm">
                             <input class="input" type="text" id="currencyInput" placeholder="Enter Currency Code" @keyup.enter="getCurrency(), dogeExchange(), showCurrencies = false">
                         </div>
