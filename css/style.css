@@ -309,9 +309,13 @@ label {
 }
 
 .previousAddress li {
+    font-family: 'Open Sans Condensed', sans-serif;
     font-weight: 600;
+    font-size:1.4em;
     cursor: pointer;
     color: #F2F2F2;
+    padding-left:0.5em;
+    padding-right:0.5em;
     padding-bottom: 0.25em;
     padding-top: 0.25em;
     text-align: center;
