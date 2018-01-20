@@ -97,7 +97,7 @@
         </div>
         <!--This is where the VR ends-->
         <div class="BGClose" v-if="showConversion" @click="showCurrenciesMenu(), showConversionMenu()"></div>
-        <div class="previousAddressBGClose" v-if="showPrevAddrMenu" @click="showPreviousAddressMenu()"></div>
+        <div class="previousAddressBGClose" v-if="showPrevAddrMenu && slot1" @click="showPreviousAddressMenu()"></div>
         <nav class="navDoge fadeInDown" role="navigation" aria-label="main navigation" @click="showConversionMenu()">
             <div class="titleDoge">
                 <span class="wow">DOGECOIN</span> <img alt="Flat Dogecoin Image" class="dogeIcon" src="images/dogeIcon.png">
@@ -205,7 +205,7 @@
 
 
         <transition name="fade" enter-active-class="fadeInUp" leave-active-class="fadeOutDown">
-            <div v-if="showPrevAddrMenu" class="previousAddress column is-full-mobile is-half-tablet is-half-desktop is-offset-one-quarter">
+            <div v-if="showPrevAddrMenu && slot1" class="previousAddress column is-full-mobile is-half-tablet is-half-desktop is-offset-one-quarter">
                 <p class="is-unselectable" @click="showPreviousAddressMenu();">Previous Addresses <button class="delete" aria-label="close"></button></p>
                 <ul>
                     <li v-if="slot1" @click="visibleAddr = slot1; previousAddressBalance(); dogeExchange(); showPreviousAddressMenu();">{{ slot1 }}</li>
